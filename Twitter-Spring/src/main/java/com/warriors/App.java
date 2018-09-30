@@ -8,6 +8,7 @@ import javax.security.auth.message.MessagePolicy.Target;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.social.TwitterProperties;
+import org.springframework.cglib.core.GeneratorStrategy;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,10 +63,10 @@ public class App
  
  
  @RequestMapping(value="/user/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public ResponseList<User> lookupUser(@PathVariable final String getName) throws TwitterException{
+ public Status lookupUser(@PathVariable final String getName) throws TwitterException{
 	 App app= new App();
 		Twitter twitter=app.gettwitter();
-	 return twitter.lookupUsers(getName);
+	 return twitter.lookupUsers(getName).get(0).getStatus();
  }
  
  @RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -92,9 +93,25 @@ public class App
  }
 
  
+//update status on twitter
+@RequestMapping(value="/update/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+public Status updateStatus(@PathVariable final String getName) throws TwitterException{
+	 App app= new App();
+		Twitter twitter=app.gettwitter();
+	 return twitter.updateStatus("Hi, Just trying to update").getQuotedStatus();
+	 
+}
 
- }
+//get home timeline
+@RequestMapping(value="/timeline/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+public ResponseList<Status> getTimeline(@PathVariable final String getName) throws TwitterException{
+	 App app= new App();
+		Twitter twitter=app.gettwitter();
+	 return twitter.getHomeTimeline();
+	 
+}
 
+}
 
 
    

@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Twitter-Spring</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Implementing Twitter APIs using SpringBoot</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
