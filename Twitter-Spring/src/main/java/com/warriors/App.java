@@ -1,6 +1,7 @@
 package com.warriors;
 
 
+import java.awt.Image;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,9 +12,13 @@ import org.springframework.boot.autoconfigure.social.TwitterProperties;
 import org.springframework.cglib.core.GeneratorStrategy;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import twitter4j.*;
@@ -30,86 +35,119 @@ import twitter4j.conf.ConfigurationBuilder;
  * @param <Tweet>
  *
  */
+@EnableWebMvc
 @Controller
-@RestController
-@RequestMapping("/")
+
 public class App
 {
-    	public Twitter gettwitter() {
-    	 ConfigurationBuilder cb = new ConfigurationBuilder();
-    	 cb.setDebugEnabled(true)
-       .setOAuthConsumerKey("GfncVY17T236MbmxXcjnG10Mb")
-    	 .setOAuthConsumerSecret("rWBQ5vygVGz0IKUF5ARziJK2cLaqF2TJ6XGlkaciML0N7D0X7i")
-    	   .setOAuthAccessToken("1044672710075277312-BqEdf12WsiDGMA0jQ2m2VBtmOcnEOM")
-     .setOAuthAccessTokenSecret("bt7AVbSTTtYbIR2Wal3YxClhPbY70aKNUWnK7QCPXT0RI");
-    	TwitterFactory tf = new TwitterFactory(cb.build());
-     Twitter twitter = tf.getInstance();
-     return twitter;
-    	}
-    
-/* public static final String TWITTER_BASE_URI= "/tweets";*/
+	
+	public Twitter gettwitter() {
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		.setOAuthConsumerKey("GfncVY17T236MbmxXcjnG10Mb")
+		.setOAuthConsumerSecret("rWBQ5vygVGz0IKUF5ARziJK2cLaqF2TJ6XGlkaciML0N7D0X7i")
+		.setOAuthAccessToken("1044672710075277312-BqEdf12WsiDGMA0jQ2m2VBtmOcnEOM")
+		.setOAuthAccessTokenSecret("bt7AVbSTTtYbIR2Wal3YxClhPbY70aKNUWnK7QCPXT0RI");
+		
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		return twitter;
+	}
+	
+	
+	@RequestMapping("/")
+	public String getHome() {
+		return "home";
+	}
  
- /*public void addViewControllers(ViewControllerRegistry registry) {
-     registry.addViewController("/").setViewName("index.html");
- }*/
+	@RequestMapping(value="{getTags}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getUserList(@PathVariable final String getTags, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute("tags",twitter.getUserLists(getTags));
+		return "tags";
+	}
 
- 
- @RequestMapping(value="{getTags}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public ResponseList<UserList> getUserList(@PathVariable final String getTags) throws TwitterException{
-	 App app= new App();
-		Twitter twitter=app.gettwitter();
-	 return twitter.getUserLists(getTags);
- }
- 
- 
- @RequestMapping(value="/user/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public Status lookupUser(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
-		Twitter twitter=app.gettwitter();
-	 return twitter.lookupUsers(getName).get(0).getStatus();
- }
- 
- @RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public FriendsFollowersResources getfriendsFollowers(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
-		Twitter twitter=app.gettwitter();
-	 return twitter.friendsFollowers();
- }
- 
- 
- @RequestMapping(value="/create/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public User createFriendship(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
-		Twitter twitter=app.gettwitter();
-	 return twitter.createFriendship(getName);
- }
- 
 
- @RequestMapping(value="/tweets/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
- public TweetsResources getTweets(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
+	@RequestMapping(value="/user/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String lookupUser(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
 		Twitter twitter=app.gettwitter();
-	 return twitter.tweets();
- }
+		model.addAttribute("status",twitter.lookupUsers(getName).get(0).getStatus());
+		return "status";
+	}
+	
 
- 
-//update status on twitter
-@RequestMapping(value="/update/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-public Status updateStatus(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
+	@RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
 		Twitter twitter=app.gettwitter();
-	 return twitter.updateStatus("Hi, Just trying to update").getQuotedStatus();
-	 
-}
+		model.addAttribute("followers", twitter.showFriendship("warriors", "Rohini"));
+		return "followers";
+	}
+	
+	/*@RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public FriendsFollowersResources getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		
+		return twitter.friendsFollowers();
+	}*/
 
-//get home timeline
-@RequestMapping(value="/timeline/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-public ResponseList<Status> getTimeline(@PathVariable final String getName) throws TwitterException{
-	 App app= new App();
+	@RequestMapping(value="/create/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String createFriendship(@PathVariable final String getName,Model model) throws TwitterException{
+		App app= new App();
 		Twitter twitter=app.gettwitter();
-	 return twitter.getHomeTimeline();
-	 
-}
+		model.addAttribute("friendship", twitter.createFriendship(getName));
+		return "friendship";
+	}
+
+   
+	@RequestMapping(value="/tweets/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String reTweet(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute("tweets", twitter.retweetStatus(1049867326));
+		return "tweets";
+	}
+	
+	@RequestMapping(value="/unRetweet/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String unRetweet(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute(twitter.unRetweetStatus(1049867326));
+		return "unRetweet";
+	}
+
+	@RequestMapping(value="/trends/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getTrends(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute("trends", twitter.getAvailableTrends());
+		return "trends";
+	}
+
+	//update status on twitter
+	@RequestMapping(value="/update/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String updateStatus(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute("updateStatus", twitter.updateStatus("Just Another Meassage- Pooja").getQuotedStatus());
+		return "updateStatus"; 
+
+	}
+
+	//get home timeline
+
+	@GetMapping(value="/timeline/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getTimeline(@PathVariable final String getName, Model model) throws TwitterException{
+		App app= new App();
+		Twitter twitter=app.gettwitter();
+		model.addAttribute("timeline",twitter.getHomeTimeline());
+		return "timeline";
+
+	}
+
 
 }
 
