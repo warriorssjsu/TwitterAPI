@@ -8,7 +8,7 @@
 </head>
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
-<li>Tags : ${tags}</li>
+<li>Tags for ${getName} : ${tags}</li>
 </ul>
 </body>
 </html>

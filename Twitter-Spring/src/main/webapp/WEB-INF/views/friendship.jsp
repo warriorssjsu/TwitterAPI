@@ -8,7 +8,20 @@
 </head>
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
-<li>Friendship : ${friendship}</li>
+<li>Create Friendship with Warriors : "accessLevel" : ${accessLevel},
+"id" : ${id}
+"name" : ${name}
+"email" : ${email}
+"screenName" : ${screenName}
+"location" : ${location}
+"description" : ${description}
+"url" : ${url}
+"followersCount" : ${followersCount}
+"status" : ${status}
+"statusRangeStart" : ${statusRangeStart}
+"statusRangeEnd" : ${statusRangeEnd}
+
+</li>
 </ul>
 </body>
 </html>

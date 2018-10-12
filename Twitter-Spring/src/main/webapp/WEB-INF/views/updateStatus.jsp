@@ -9,6 +9,15 @@
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
 <li>Updated Status Successfully - Please check twitter account</li>
+<li>"id" : ${id}
+"createdAt" : ${createdAt}
+"text" : ${text}
+"source" : ${source}
+"geoLocation" : ${geoLocation}
+"place" : ${place}
+"retweetCount" : ${retweetCount}
+"hashtagEntities" : ${hashtagEntities}
+</li>
 </ul>
 </body>
 </html>

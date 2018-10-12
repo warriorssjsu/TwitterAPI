@@ -2,6 +2,7 @@ package com.warriors;
 
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import twitter4j.*;
 import twitter4j.api.FriendsFollowersResources;
 import twitter4j.api.TweetsResources;
@@ -42,6 +46,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class App
 {
+	
+	ObjectMapper mapper = new ObjectMapper();
 	
 	public Twitter gettwitter() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -63,29 +69,56 @@ public class App
 	}
  
 	@RequestMapping(value="{getTags}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getUserList(@PathVariable final String getTags, Model model) throws TwitterException{
+	public String getUserList(@PathVariable final String getTags, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("tags",twitter.getUserLists(getTags));
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.getUserLists(getTags).get(0));
+		JSONObject json = new JSONObject(jsonResult);
+		
+		ArrayList<Object> li = new ArrayList();
+		li.add(json.get("id"));
+		li.add(json.get("name"));
+		li.add(json.get("fullName"));
+		li.add(json.get("slug"));
+		li.add(json.get("uri"));
+		li.add(json.getJSONObject("user").getString("screenName"));
+		li.add(json.getJSONObject("user").getString("location"));
+		li.add(json.getJSONObject("user").getString("description"));
+		
+		model.addAttribute("tags", li);
+		
 		return "tags";
 	}
 
 
-	@RequestMapping(value="/user/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String lookupUser(@PathVariable final String getName, Model model) throws TwitterException{
+	@RequestMapping(value="/status/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String lookupUser(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("status",twitter.lookupUsers(getName).get(0).getStatus());
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.lookupUsers(getName).get(0).getStatus());
+		JSONObject json = new JSONObject(jsonResult);
+		model.addAttribute("status",json.getString("text"));
 		return "status";
 	}
 	
 
-	@RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException{
+	@RequestMapping(value="/showFriendship/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("followers", twitter.showFriendship("warriors", "Rohini"));
-		return "followers";
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.showFriendship("warriors", "BradPitt"));
+		
+		JSONObject json = new JSONObject(jsonResult);
+		model.addAttribute("accessLevel", json.getString("accessLevel"));
+		model.addAttribute("targetUserId", json.getString("targetUserId"));
+		model.addAttribute("targetUserScreenName", json.getString("targetUserScreenName"));
+		model.addAttribute("sourceUserId", json.getString("sourceUserId"));
+		model.addAttribute("sourceUserScreenName", json.getString("sourceUserScreenName"));
+		model.addAttribute("targetFollowedBySource", json.getString("targetFollowedBySource"));
+		return "showFriendship";
 	}
 	
 	/*@RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -97,56 +130,95 @@ public class App
 	}*/
 
 	@RequestMapping(value="/create/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String createFriendship(@PathVariable final String getName,Model model) throws TwitterException{
+	public String createFriendship(@PathVariable final String getName,Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("friendship", twitter.createFriendship(getName));
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.createFriendship(getName));
+		
+		JSONObject json = new JSONObject(jsonResult);
+		model.addAttribute("accessLevel", json.getString("accessLevel"));
+		model.addAttribute("id", json.getString("id"));
+		model.addAttribute("name", json.getString("name"));
+		model.addAttribute("email", json.getString("email"));
+		model.addAttribute("screenName", json.getString("screenName"));
+		model.addAttribute("location", json.getString("location"));
+		model.addAttribute("description", json.getString("description"));
+		model.addAttribute("url", json.getString("url"));
+		model.addAttribute("followersCount", json.getString("followersCount"));
+		model.addAttribute("status",json.getJSONObject("status").getString("text"));
+		model.addAttribute("statusRangeStart",json.getJSONObject("status").getString("displayTextRangeStart"));
+		model.addAttribute("statusRangeEnd",json.getJSONObject("status").getString("displayTextRangeEnd"));
+		
 		return "friendship";
 	}
 
    
 	@RequestMapping(value="/tweets/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String reTweet(@PathVariable final String getName, Model model) throws TwitterException{
+	public String reTweet(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		
 		if(twitter.getRetweets(929960910) != null) {
 		    twitter.unRetweetStatus(929960910);
 		}
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.retweetStatus(929960910));
+		JSONObject json = new JSONObject(jsonResult);
 
-		model.addAttribute("tweets", twitter.retweetStatus(929960910));
+		model.addAttribute("tweets", json.getString("text"));
 		return "tweets";
 		}
 
 	
 	@RequestMapping(value="/unRetweet/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String unRetweet(@PathVariable final String getName, Model model) throws TwitterException{
+	public String unRetweet(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		if(twitter.getRetweets(929960910) == null) {
 		    twitter.retweetStatus(929960910);
 		}
 		
-		model.addAttribute("unRetweet",twitter.unRetweetStatus(929960910));
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.unRetweetStatus(929960910));
+		
+		JSONObject json = new JSONObject(jsonResult);
+		
+		model.addAttribute("unRetweet",json.getString("text"));
 		return "unRetweet";
 	}
 
 	@RequestMapping(value="/trends/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getTrends(@PathVariable final String getName, Model model) throws TwitterException{
+	public String getTrends(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("trends", twitter.getAvailableTrends());
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.getAvailableTrends().get(0));
+		
+		JSONObject json = new JSONObject(jsonResult);
+		
+		model.addAttribute("trends", json);
 		return "trends";
 	}
 
 	//update status on twitter
 	@RequestMapping(value="/update/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String updateStatus(@PathVariable final String getName, Model model) throws TwitterException{
+	public String updateStatus(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		Random r = new Random();
-		Status status = twitter.updateStatus("Just Another Meassage- Warriors"+r.nextInt()).getQuotedStatus();
-		model.addAttribute("updateStatus",status );
+		Status status = twitter.updateStatus("Just Another Meassage- Warriors"+r.nextInt());
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(status);
+		
+		JSONObject json = new JSONObject(jsonResult);
+		model.addAttribute("createdAt", json.getString("createdAt"));
+		model.addAttribute("id", json.getString("id"));
+		model.addAttribute("text", json.getString("text"));
+		model.addAttribute("source", json.getString("source"));
+		model.addAttribute("geoLocation", json.getString("geoLocation"));
+		model.addAttribute("place", json.getString("place"));
+		model.addAttribute("retweetCount", json.getString("retweetCount"));
+		model.addAttribute("hashtagEntities", json.getString("hashtagEntities"));
+		
 		return "updateStatus"; 
 
 	}
@@ -154,10 +226,23 @@ public class App
 	//get home timeline
 
 	@GetMapping(value="/timeline/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getTimeline(@PathVariable final String getName, Model model) throws TwitterException{
+	public String getTimeline(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("timeline",twitter.getHomeTimeline());
+		
+		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.getHomeTimeline().get(5));
+		
+		JSONObject json = new JSONObject(jsonResult);
+		model.addAttribute("createdAt", json.getString("createdAt"));
+		model.addAttribute("id", json.getString("id"));
+		model.addAttribute("text", json.getString("text"));
+		model.addAttribute("source", json.getString("source"));
+		model.addAttribute("geoLocation", json.getString("geoLocation"));
+		model.addAttribute("place", json.getString("place"));
+		model.addAttribute("retweetCount", json.getString("retweetCount"));
+		model.addAttribute("userName", json.getJSONObject("user").getString("name"));
+		model.addAttribute("screenName", json.getJSONObject("user").getString("screenName"));
+		
 		return "timeline";
 
 	}

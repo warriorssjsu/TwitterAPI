@@ -9,6 +9,6 @@
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
 <li>ReTweeted Successfully : Check twitter Account</li>
-<li>${tweets}</li></ul>
+<li>Retweeted Tweet : ${tweets}</li></ul>
 </body>
 </html>

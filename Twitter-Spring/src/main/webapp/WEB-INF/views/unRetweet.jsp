@@ -9,7 +9,7 @@
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
 <li>UnRetweeted Successfully- check twitter account</li>
-<li>${unRetweet}</li>
+<li>UnRetweeted Tweet: ${unRetweet}</li>
 </ul>
 </body>
 </html>

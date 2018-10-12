@@ -8,7 +8,16 @@
 </head>
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
-<li>Timeline = ${timeline}</li>
+<li>Timeline Data : "id" : ${id}
+"createdAt" : ${createdAt}
+"text" : ${text}
+"source" : ${source}
+"geoLocation" : ${geoLocation}
+"place" : ${place}
+"retweetCount" : ${retweetCount}
+"userName" : ${userName}
+"screenName" : ${screenName}
+</li>
 </ul>
 </body>
 </html>
