@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Followers</title>
 </head>
 <body>
-Followers : ${followers}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Followers : ${followers}</li></ul>
 </body>
 </html>

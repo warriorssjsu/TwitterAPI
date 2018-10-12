@@ -3,9 +3,11 @@ package com.warriors;
 
 import java.awt.Image;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.security.auth.message.MessagePolicy.Target;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.social.TwitterProperties;
@@ -107,15 +109,25 @@ public class App
 	public String reTweet(@PathVariable final String getName, Model model) throws TwitterException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("tweets", twitter.retweetStatus(1049867326));
+		
+		if(twitter.getRetweets(929960910) != null) {
+		    twitter.unRetweetStatus(929960910);
+		}
+
+		model.addAttribute("tweets", twitter.retweetStatus(929960910));
 		return "tweets";
-	}
+		}
+
 	
 	@RequestMapping(value="/unRetweet/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String unRetweet(@PathVariable final String getName, Model model) throws TwitterException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute(twitter.unRetweetStatus(1049867326));
+		if(twitter.getRetweets(929960910) == null) {
+		    twitter.retweetStatus(929960910);
+		}
+		
+		model.addAttribute("unRetweet",twitter.unRetweetStatus(929960910));
 		return "unRetweet";
 	}
 
@@ -132,7 +144,9 @@ public class App
 	public String updateStatus(@PathVariable final String getName, Model model) throws TwitterException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		model.addAttribute("updateStatus", twitter.updateStatus("Just Another Meassage- Pooja").getQuotedStatus());
+		Random r = new Random();
+		Status status = twitter.updateStatus("Just Another Meassage- Warriors"+r.nextInt()).getQuotedStatus();
+		model.addAttribute("updateStatus",status );
 		return "updateStatus"; 
 
 	}

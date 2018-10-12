@@ -7,6 +7,8 @@
 <title>Status</title>
 </head>
 <body>
-Status : ${status}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Status : ${status}</li>
+</ul>
 </body>
 </html>

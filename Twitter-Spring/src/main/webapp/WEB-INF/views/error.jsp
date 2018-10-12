@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Tags</title>
+<title>Error</title>
 </head>
 <body>
 <ul><li><a href="/">Back to Home Page</a></li>
-<li>Tags : ${tags}</li>
+<li><h2>Error page</h2></li>
 </ul>
 </body>
 </html>

@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Update Status</title>
 </head>
 <body>
-UpdatedStatus : ${updateStatus}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Updated Status Successfully - Please check twitter account</li>
+</ul>
 </body>
 </html>

@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Tweets</title>
 </head>
 <body>
-Tweets : ${tweets}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>ReTweeted Successfully : Check twitter Account</li>
+<li>${tweets}</li></ul>
 </body>
 </html>

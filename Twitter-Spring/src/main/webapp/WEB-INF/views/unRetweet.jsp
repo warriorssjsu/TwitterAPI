@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Unretweet</title>
 </head>
 <body>
-UnRetweeted - check twitter account
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>UnRetweeted Successfully- check twitter account</li>
+<li>${unRetweet}</li>
+</ul>
 </body>
 </html>

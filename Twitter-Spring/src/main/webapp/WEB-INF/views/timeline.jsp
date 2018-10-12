@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Timeline</title>
 </head>
 <body>
-Timeline = ${timeline}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Timeline = ${timeline}</li>
+</ul>
 </body>
 </html>

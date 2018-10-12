@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Trends</title>
 </head>
 <body>
-Trends : ${trends}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Trends : ${trends}</li></ul>
 </body>
 </html>

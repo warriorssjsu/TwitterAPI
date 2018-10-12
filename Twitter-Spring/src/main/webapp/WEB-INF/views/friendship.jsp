@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Create Friendship</title>
 </head>
 <body>
-Friendship : ${friendship}
+<ul><li><a href="/">Back to Home Page</a></li>
+<li>Friendship : ${friendship}</li>
+</ul>
 </body>
 </html>
