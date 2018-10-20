@@ -69,7 +69,7 @@ public class App
 	}
  
 	@RequestMapping(value="{getTags}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getUserList(@PathVariable final String getTags, Model model) throws TwitterException, JsonProcessingException{
+	public String getTags(@PathVariable final String getTags, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		
@@ -105,7 +105,7 @@ public class App
 	
 
 	@RequestMapping(value="/showFriendship/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
+	public String showFriendship(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		
