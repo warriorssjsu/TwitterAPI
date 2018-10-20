@@ -1,43 +1,24 @@
 package com.warriors;
 
 
-import java.awt.Image;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
-import javax.security.auth.message.MessagePolicy.Target;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.social.TwitterProperties;
-import org.springframework.cglib.core.GeneratorStrategy;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import twitter4j.*;
-import twitter4j.api.FriendsFollowersResources;
-import twitter4j.api.TweetsResources;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
- * Hello world!
  * @param <Tweet>
  *
  */
@@ -76,7 +57,7 @@ public class App
 		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.getUserLists(getTags).get(0));
 		JSONObject json = new JSONObject(jsonResult);
 		
-		ArrayList<Object> li = new ArrayList();
+		ArrayList<Object> li = new ArrayList<Object>();
 		li.add(json.get("id"));
 		li.add(json.get("name"));
 		li.add(json.get("fullName"));
