@@ -65,6 +65,22 @@ public class AppTest {
                     //["1002897", "NBA Players", "@BasketballOrg/nba-players", "nba-players", "/BasketballOrg/lists/nba-players", "BasketballOrg", "Santa Monica, CA", "Fundamental Basketball Resource and Guide. Enhancing the abilities of basketball players, teams and coaches"]")));
     }
     
+    
+    @Test
+    public void testLookupUser() throws Exception {
+
+        MockHttpServletRequestBuilder builder =
+                            MockMvcRequestBuilders.get("/status/warriors");
+
+
+        this.mockMvc.perform(builder)
+        .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print())
+                    .andExpect(MockMvcResultMatchers.model().attributeExists("status"));
+
+    }
+
+    
     @Test
     public void testCreateFriendship() throws Exception {
 
