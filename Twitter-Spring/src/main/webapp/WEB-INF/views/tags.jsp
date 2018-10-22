@@ -7,8 +7,11 @@
 <title>Tags</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Tags for ${getName} : ${tags}</li>
-</ul>
+<a href="/"><h3>Back to Home Page</h3></a>
+</br>
+<table border ="1">
+
+<tr><td><h3>Tags for ${getTags}:</h3></td><td><h3> ${tags}</h3></td></tr>
+</table>
 </body>
 </html>

@@ -7,17 +7,15 @@
 <title>Update Status</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Updated Status Successfully - Please check twitter account</li>
-<li>"id" : ${id}
-"createdAt" : ${createdAt}
-"text" : ${text}
-"source" : ${source}
-"geoLocation" : ${geoLocation}
-"place" : ${place}
-"retweetCount" : ${retweetCount}
-"hashtagEntities" : ${hashtagEntities}
-</li>
-</ul>
+<a href="/"><h3>Back to Home Page</h3></a>
+<h3>Updated Status Successfully - Please check twitter account</h3>
+<table border="1">
+<tr><td><h3>"id" :</h3></td><td><h3> ${id}</h3></td></tr>
+<tr><td><h3>"createdAt" :</h3></td><td><h3> ${createdAt}</h3></td></tr>
+<tr><td><h3>"text" :</h3></td><td><h3> ${text}</h3></td></tr>
+<tr><td><h3>"source" :</h3></td><td><h3> ${source}</h3></td></tr>
+<tr><td><h3>"retweetCount" :</h3></td><td><h3> ${retweetCount}</h3></td></tr>
+<tr><td><h3>"hashtagEntities" :</h3></td><td><h3> ${hashtagEntities}</h3></td></tr>
+</table>
 </body>
 </html>

@@ -74,7 +74,7 @@ public class App
 
 
 	@RequestMapping(value="/status/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String lookupUser(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
+	public String getUserStatus(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
 		

@@ -7,13 +7,15 @@
 <title>Followers</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Friendship between ${getName} and BradPitt : "accessLevel" : ${accessLevel},
-"targetUserId" : ${targetUserId}
-"targetUserScreenName" : ${targetUserScreenName}
-"sourceUserId" : ${sourceUserId}
-"sourceUserScreenName" : ${sourceUserScreenName}
-"targetFollowedBySource" : ${targetFollowedBySource}
-</li>
-</ul></body>
+<a href="/"><h3>Back to Home Page</h3></a>
+<h3>Friendship between ${getName} and BradPitt :</h3>
+<table border="1">
+<tr><td><h3>accessLevel:</h3></td><td><h3> ${accessLevel}</h3></td></tr>
+<tr><td><h3>targetUserId:</h3></td><td><h3> ${targetUserId}</h3></td></tr>
+<tr><td><h3>targetUserScreenName:</h3></td><td><h3> ${targetUserScreenName}</h3></td></tr>
+<tr><td><h3>sourceUserId:</h3></td><td><h3> ${sourceUserId}</h3></td></tr>
+<tr><td><h3>sourceUserScreenName: </h3></td><td><h3> ${sourceUserScreenName}</h3></td></tr>
+<tr><td><h3>targetFollowedBySource:</h3></td><td><h3> ${targetFollowedBySource}</h3></td></tr>
+</table>
+</body>
 </html>

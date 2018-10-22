@@ -7,8 +7,13 @@
 <title>Status</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Status : ${status}</li>
-</ul>
+
+<a href="/"><h3>Back to Home Page</h3></a>
+</br>
+<table border ="1">
+
+<tr><td><h3>Status of ${getName}:</h3></td><td><h3>${status}</h3></td></tr>
+</table>
+
 </body>
 </html>

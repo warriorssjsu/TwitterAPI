@@ -8,18 +8,18 @@
 </head>
 <body>
 <h1>Welcome to the Twitter API - Team Warriors</h1>
-<h2>Below are the 9 APIs we have developed</h2>
+<h1>Below are the 9 APIs we have developed</h1>
 
 <ul style="list-style-type:square">
-<li><a href="/status/Warriors">Get Warriors Status</a></li>
-<li><a href="/showFriendship/Warriors">Show Friendship</a></li>
-<li><a href="/Basketball">Get Tags</a></li>
-<li><a href="/create/Warriors">Create Friendship</a></li>
-<li><a href="/tweets/Warriors">Retweet a tweet</a></li>
-<li><a href="/unRetweet/Warriors">Un-Retweet a tweet</a></li>
-<li><a href="/trends/Warriors">Get Available Trends</a></li>
-<li><a href="/update/Warriors">Update Warriors Status</a></li>
-<li><a href="/timeline/Warriors">Get Warriors Home Timeline</a></li>
+<li><a href="/status/Warriors"><h3>Get Warriors Status</h3></a></li>
+<li><a href="/showFriendship/Warriors"><h3>Show Friendship</h3></a></li>
+<li><a href="/Basketball"><h3>Get Tags</h3></a></li>
+<li><a href="/create/Warriors"><h3>Create Friendship</h3></a></li>
+<li><a href="/tweets/Warriors"><h3>Retweet a tweet</h3></a></li>
+<li><a href="/unRetweet/Warriors"><h3>Un-Retweet a tweet</h3></a></li>
+<li><a href="/trends/Warriors"><h3>Get Available Trends</h3></a></li>
+<li><a href="/update/Warriors"><h3>Update Warriors Status</h3></a></li>
+<li><a href="/timeline/Warriors"><h3>Get Warriors Home Timeline</h3></a></li>
 </ul>
 
 </body>

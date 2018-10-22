@@ -67,7 +67,7 @@ public class AppTest {
     
     
     @Test
-    public void testLookupUser() throws Exception {
+    public void testGetUserStatus() throws Exception {
 
         MockHttpServletRequestBuilder builder =
                             MockMvcRequestBuilders.get("/status/warriors");

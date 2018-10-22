@@ -7,8 +7,7 @@
 <title>Error</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li><h2>Error page</h2></li>
-</ul>
+<a href="/"><h3>Back to Home Page</h3></a>
+<h3>Error page</h3>
 </body>
 </html>

@@ -7,7 +7,11 @@
 <title>Trends</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Trends : ${trends}</li></ul>
+<a href="/"><h3>Back to Home Page</h3></a>
+</br>
+<table border ="1">
+<tr><td><h3>Trends :</h3></td><td><h3> ${trends}</h3></td></tr>
+
+</table>
 </body>
 </html>

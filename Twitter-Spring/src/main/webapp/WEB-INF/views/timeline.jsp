@@ -7,17 +7,16 @@
 <title>Timeline</title>
 </head>
 <body>
-<ul><li><a href="/">Back to Home Page</a></li>
-<li>Timeline Data : "id" : ${id}
-"createdAt" : ${createdAt}
-"text" : ${text}
-"source" : ${source}
-"geoLocation" : ${geoLocation}
-"place" : ${place}
-"retweetCount" : ${retweetCount}
-"userName" : ${userName}
-"screenName" : ${screenName}
-</li>
-</ul>
+<a href="/"><h3>Back to Home Page</h3></a>
+<h3>Timeline Data : </h3>
+<table border="1">
+<tr><td><h3>"id" :</h3></td><td><h3> ${id}</h3></td></tr>
+<tr><td><h3>"createdAt" :</h3></td><td><h3> ${createdAt}</h3></td></tr>
+<tr><td><h3>"text" :</h3></td><td><h3> ${text}</h3></td></tr>
+<tr><td><h3>"source" :</h3></td><td><h3> ${source}</h3></td></tr>
+<tr><td><h3>"retweetCount" :</h3></td><td><h3> ${retweetCount}</h3></td></tr>
+<tr><td><h3>"userName" :</h3></td><td><h3> ${userName}</h3></td></tr>
+<tr><td><h3>"screenName" :</h3></td><td><h3> ${screenName}</h3></td></tr>
+</table>
 </body>
 </html>
