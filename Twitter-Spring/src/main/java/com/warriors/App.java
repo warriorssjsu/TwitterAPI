@@ -3,13 +3,13 @@ package com.warriors;
 
 
 import java.util.ArrayList;
-import java.util.Random;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,6 +30,7 @@ public class App
 	
 	ObjectMapper mapper = new ObjectMapper();
 	
+	//Twitter set up to access the API - done by Rohini
 	public Twitter gettwitter() {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
@@ -43,12 +44,13 @@ public class App
 		return twitter;
 	}
 	
-	
+	//Home Page mapping
 	@RequestMapping("/")
 	public String getHome() {
 		return "home";
 	}
  
+	//Twitter API to getTags from getUserLists - done by Lalitha
 	@RequestMapping(value="{getTags}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String getTags(@PathVariable final String getTags, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -72,7 +74,8 @@ public class App
 		return "tags";
 	}
 
-
+	
+    //Twitter API to get user status - done by Lalitha
 	@RequestMapping(value="/status/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String getUserStatus(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -84,7 +87,8 @@ public class App
 		return "status";
 	}
 	
-
+    
+	//Twitter API to show friendship between two users - done by Lalitha
 	@RequestMapping(value="/showFriendship/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String showFriendship(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -102,14 +106,7 @@ public class App
 		return "showFriendship";
 	}
 	
-	/*@RequestMapping(value="/followers/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public FriendsFollowersResources getfriendsFollowers(@PathVariable final String getName, Model model) throws TwitterException{
-		App app= new App();
-		Twitter twitter=app.gettwitter();
-		
-		return twitter.friendsFollowers();
-	}*/
-
+	//Twitter API to create friendship with a user - done by Rohini
 	@RequestMapping(value="/create/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String createFriendship(@PathVariable final String getName,Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -135,7 +132,8 @@ public class App
 	}
 
    
-	@RequestMapping(value="/tweets/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	//Twitter API to retweet a tweet - done by Rohini
+	@RequestMapping(value="/reTweet/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String reTweet(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
@@ -146,11 +144,12 @@ public class App
 		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.retweetStatus(929960910));
 		JSONObject json = new JSONObject(jsonResult);
 
-		model.addAttribute("tweets", json.getString("text"));
-		return "tweets";
+		model.addAttribute("reTweet", json.getString("text"));
+		return "reTweet";
 		}
 
 	
+	//Twitter API to unretweet a tweet - done by Rohini
 	@RequestMapping(value="/unRetweet/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String unRetweet(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -167,6 +166,7 @@ public class App
 		return "unRetweet";
 	}
 
+	//Twitter API to get trends - done by Pooja
 	@RequestMapping(value="/trends/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String getTrends(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
@@ -176,20 +176,29 @@ public class App
 		
 		JSONObject json = new JSONObject(jsonResult);
 		
-		model.addAttribute("trends", json);
+		model.addAttribute("woeid", json.getString("woeid"));
+		model.addAttribute("placeName", json.getString("placeName"));
+		model.addAttribute("placeCode", json.getString("placeCode"));
+		model.addAttribute("name", json.getString("name"));
+		model.addAttribute("url", json.getString("url"));
+		
 		return "trends";
 	}
 
-	//update status on twitter
-	@RequestMapping(value="/update/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String updateStatus(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
+	//Twitter API to update status - done by Pooja
+	@RequestMapping(value="/update/status", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String updateStatus(@RequestParam("status")String status, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();
 		Twitter twitter=app.gettwitter();
-		Random r = new Random();
-		Status status = twitter.updateStatus("Just Another Meassage- Warriors"+r.nextInt());
-		
-		String jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(status);
-		
+		String jsonResult ="";
+		try {
+			
+		jsonResult = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(twitter.updateStatus(status));
+		}
+        catch(TwitterException te) {
+        	model.addAttribute("error", "This status is duplicate , please provide some other status");
+        	return "error";
+		}
 		JSONObject json = new JSONObject(jsonResult);
 		model.addAttribute("createdAt", json.getString("createdAt"));
 		model.addAttribute("id", json.getString("id"));
@@ -204,8 +213,7 @@ public class App
 
 	}
 
-	//get home timeline
-
+	//Twitter API to get home timeline - done by Pooja
 	@GetMapping(value="/timeline/{getName}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String getTimeline(@PathVariable final String getName, Model model) throws TwitterException, JsonProcessingException{
 		App app= new App();

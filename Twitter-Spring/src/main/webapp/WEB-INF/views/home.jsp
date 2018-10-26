@@ -15,10 +15,18 @@
 <li><a href="/showFriendship/Warriors"><h3>Show Friendship</h3></a></li>
 <li><a href="/Basketball"><h3>Get Tags</h3></a></li>
 <li><a href="/create/Warriors"><h3>Create Friendship</h3></a></li>
-<li><a href="/tweets/Warriors"><h3>Retweet a tweet</h3></a></li>
+<li><a href="/reTweet/Warriors"><h3>Retweet a tweet</h3></a></li>
 <li><a href="/unRetweet/Warriors"><h3>Un-Retweet a tweet</h3></a></li>
 <li><a href="/trends/Warriors"><h3>Get Available Trends</h3></a></li>
-<li><a href="/update/Warriors"><h3>Update Warriors Status</h3></a></li>
+<li><a href="#" onclick="document.getElementById('inputField').style.display = 'block';"><h3>Update Status</h3></a>
+
+<div id="inputField" style="display:none;">
+<form method="post" action="/update/status">
+   <input type="text" name="status" id="textInput" />
+   <input type="submit" value="Update" class="btn" >
+   </form>
+</div>
+</li>
 <li><a href="/timeline/Warriors"><h3>Get Warriors Home Timeline</h3></a></li>
 </ul>
 

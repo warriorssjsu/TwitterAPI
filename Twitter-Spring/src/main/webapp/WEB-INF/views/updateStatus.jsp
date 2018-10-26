@@ -15,7 +15,6 @@
 <tr><td><h3>"text" :</h3></td><td><h3> ${text}</h3></td></tr>
 <tr><td><h3>"source" :</h3></td><td><h3> ${source}</h3></td></tr>
 <tr><td><h3>"retweetCount" :</h3></td><td><h3> ${retweetCount}</h3></td></tr>
-<tr><td><h3>"hashtagEntities" :</h3></td><td><h3> ${hashtagEntities}</h3></td></tr>
 </table>
 </body>
 </html>

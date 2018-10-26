@@ -10,7 +10,7 @@
 <a href="/"><h3>Back to Home Page</h3></a>
 <h3>ReTweeted Successfully : Check twitter Account</h3>
 <table border="1">
-<tr><td><h3>Retweeted Tweet :</h3></td><td><h3> ${tweets}</h3></td></tr>
+<tr><td><h3>Retweeted Tweet :</h3></td><td><h3> ${reTweet}</h3></td></tr>
 </table>
 </body>
 </html>

@@ -10,7 +10,11 @@
 <a href="/"><h3>Back to Home Page</h3></a>
 </br>
 <table border ="1">
-<tr><td><h3>Trends :</h3></td><td><h3> ${trends}</h3></td></tr>
+<tr><td><h3>woeid :</h3></td><td><h3> ${woeid}</h3></td></tr>
+<tr><td><h3>placeName :</h3></td><td><h3> ${placeName}</h3></td></tr>
+<tr><td><h3>placeCode :</h3></td><td><h3> ${placeCode}</h3></td></tr>
+<tr><td><h3>name :</h3></td><td><h3> ${name}</h3></td></tr>
+<tr><td><h3>url :</h3></td><td><h3> ${url}</h3></td></tr>
 
 </table>
 </body>
