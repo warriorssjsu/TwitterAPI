@@ -215,8 +215,9 @@ public class AppTest {
                     //because of the updates done on twitter
                     //.andExpect(MockMvcResultMatchers.model().attribute("source","<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>"))
                     //.andExpect(MockMvcResultMatchers.model().attribute("retweetCount","834"))
-                    .andExpect(MockMvcResultMatchers.model().attribute("userName","Warriors"))
-                    .andExpect(MockMvcResultMatchers.model().attribute("screenName","Warrior86219812"));;
+                    .andExpect(MockMvcResultMatchers.model().attribute("userName","Golden State Warriors"))
+                    //.andExpect(MockMvcResultMatchers.model().attribute("screenName","Warrior86219812"))
+                    ;
 
     }
     

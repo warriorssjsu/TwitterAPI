@@ -4,9 +4,22 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+ 
 <title>Home</title>
 </head>
-<body>
+<body  style="background-color: powderblue;">
+<script type="text/javascript" >
+function check()
+            {
+                if (document.getElementById('status').value==""
+                 || document.getElementById('status').value==undefined)
+                {
+                    alert ("Please Enter status to be updated");
+                    return false;
+                }
+                return true;
+            }
+</script>
 <h1>Welcome to the Twitter API - Team Warriors</h1>
 <h1>Below are the 9 APIs we have developed</h1>
 
@@ -22,8 +35,8 @@
 
 <div id="inputField" style="display:none;">
 <form method="post" action="/update/status">
-   <input type="text" name="status" id="textInput" />
-   <input type="submit" value="Update" class="btn" >
+   <input type="text" name="status" id="status" />
+   <input type="submit" value="Update" class="btn" onclick ="return check();" >
    </form>
 </div>
 </li>

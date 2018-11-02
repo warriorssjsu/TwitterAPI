@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Tweets</title>
 </head>
-<body>
+<body style="background-color: powderblue;">
 <a href="/"><h3>Back to Home Page</h3></a>
 <h3>ReTweeted Successfully : Check twitter Account</h3>
 <table border="1">

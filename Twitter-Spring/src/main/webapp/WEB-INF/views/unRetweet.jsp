@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Unretweet</title>
 </head>
-<body>
+<body style="background-color: powderblue;">
 
 <a href="/"><h3>Back to Home Page</h3></a>
 <h3>UnRetweeted Successfully : Check twitter Account</h3>

@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Create Friendship</title>
 </head>
-<body>
+<body style="background-color: powderblue;">
 <a href="/"><h3>Back to Home Page</h3></a>
 <h3>Create Friendship with Warriors :</h3>
 <table border ="1">
